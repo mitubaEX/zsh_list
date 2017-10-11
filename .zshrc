@@ -1,3 +1,17 @@
+#
+# Executes commands at the start of an interactive session.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+
+# Customize to your needs...
+
 # Emacs ライクな操作を有効にする（文字入力中に Ctrl-F,B でカーソル移動など）
 # Vi ライクな操作が好みであれば `bindkey -v` とする
 bindkey -v
@@ -111,4 +125,26 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 alias rm='rm -rf'
+alias vi='vim'
+export GOPATH=/Users/mituba/goprojects
 #alias ls='ls -a'
+stty stop undef
+stty start undef
+
+alias dockerrm='docker rm -f $(docker ps -qa)'
+alias dockerrmi='docker rmi -f $(docker images -q)'
+alias python='python -B'
+
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+zle -N peco-history-selection
+bindkey '^R' peco-history-selection
+
+export PATH="/Users/username/.pyenv:$PATH"
+eval "$(pyenv init -)"
+
+export PATH=$PATH:/Users/mituba/goprojects/src/github.com/kakakakakku/togoo
