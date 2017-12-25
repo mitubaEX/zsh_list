@@ -125,8 +125,10 @@ zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
 alias rm='rm -rf'
-alias vi='vim'
-export GOPATH=/Users/mituba/goprojects
+alias vi='nvim'
+alias vim='nvim'
+alias nv='nvim'
+export GOPATH=~/go
 #alias ls='ls -a'
 stty stop undef
 stty start undef
@@ -147,4 +149,4 @@ bindkey '^R' peco-history-selection
 export PATH="/Users/username/.pyenv:$PATH"
 eval "$(pyenv init -)"
 
-export PATH=$PATH:/Users/mituba/goprojects/src/github.com/kakakakakku/togoo
+export PATH=$PATH:$GOPATH/bin
