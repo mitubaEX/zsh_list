@@ -1,17 +1,3 @@
-#
-# Executes commands at the start of an interactive session.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
-
-# Source Prezto.
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
-
-# Customize to your needs...
-
 # Emacs ライクな操作を有効にする（文字入力中に Ctrl-F,B でカーソル移動など）
 # Vi ライクな操作が好みであれば `bindkey -v` とする
 bindkey -v
@@ -30,13 +16,9 @@ setopt auto_cd
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-# "~hoge" が特定のパス名に展開されるようにする（ブックマークのようなもの）
-# 例： cd ~hoge と入力すると /long/path/to/hogehoge ディレクトリに移動
-hash -d hoge=/long/path/to/hogehoge
-
 # cd した先のディレクトリをディレクトリスタックに追加する
 # ディレクトリスタックとは今までに行ったディレクトリの履歴のこと
-# `cd +<Tab>` でディレクトリの履歴が表示され、そこに移動できる
+# `cd -<Tab>` でディレクトリの履歴が表示され、そこに移動できる
 setopt auto_pushd
 
 # pushd したとき、ディレクトリがすでにスタックに含まれていればスタックに追加しない
@@ -76,8 +58,8 @@ bindkey -v '^J'   down-line-or-history
 
 alias e='exit'
 
-autoload -U compinit
-compinit
+# autoload -U compinit
+# compinit
 
 export LSCOLORS=gxfxcxdxbxegedabagacag
 export LS_COLORS='di=36;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;46'
@@ -87,7 +69,7 @@ alias gls="gls --color"
 
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
 
-th=(~/.zsh/completion $fpath)
+# th=(~/.zsh/completion $fpath)
 
 autoload -U compinit
 compinit -u
@@ -97,10 +79,10 @@ PROMPT=$'$ '
 
 #PROMPT='[%n@%m]# '
 #RPROMPT='[%d]'
-export PYTHONPATH="/usr/local/lib/python2.7/site-packages/:$PYTHONPATH"
-alias tweet='~/kotoriotoko/BIN/tweet.sh'
-alias pdf='python ~/pdf_reader/pdf_reader.py'
-alias rename='python ~/pdf_reader/file_renamer.py'
+# export PYTHONPATH="/usr/local/lib/python2.7/site-packages/:$PYTHONPATH:python3:pip3"
+export PYTHONPATH=python3:pip3
+
+# 大文字小文字区別しない
 zstyle ':completion:*' matcher-list 'm:{}a-z}={}A-Z}'
 
 HISTFILE=~/.zsh_history
@@ -109,12 +91,13 @@ SAVESIZE=1000000
 
 setopt share_history
 setopt hist_ignore_all_dups
+
 # この行は現在のパスを表示する設定です。ブランチを表示して色をつける設定とは関係ありません
 RPROMPT="%{${fg[blue]}%}[%~]%{${reset_color}%}"
 [[ -n "$VIMRUNTIME" ]] && \
     PROMPT="%{${fg[white]}${bg[blue]}%}(vim)%{${reset_color}%} $PROMPT"
 
-
+# git関連
 autoload -Uz vcs_info
 setopt prompt_subst
 zstyle ':vcs_info:git:*' check-for-changes true
@@ -124,18 +107,19 @@ zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
 precmd () { vcs_info }
 RPROMPT=$RPROMPT'${vcs_info_msg_0_}'
+
 alias rm='rm -rf'
 alias vi='nvim'
 alias vim='nvim'
 alias nv='nvim'
-export GOPATH=~/go
+export GOPATH=/Users/mituba/go
 #alias ls='ls -a'
 stty stop undef
 stty start undef
 
 alias dockerrm='docker rm -f $(docker ps -qa)'
 alias dockerrmi='docker rmi -f $(docker images -q)'
-alias python='python -B'
+# alias python='python -B'
 
 function peco-history-selection() {
     BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
@@ -150,3 +134,4 @@ export PATH="/Users/username/.pyenv:$PATH"
 eval "$(pyenv init -)"
 
 export PATH=$PATH:$GOPATH/bin
+
