@@ -39,6 +39,15 @@ setopt hist_ignore_all_dups
 # 例： <Space>echo hello と入力
 setopt hist_ignore_space
 
+# 履歴ファイルの保存先
+export HISTFILE=${HOME}/.zsh_history
+#
+# # メモリに保存される履歴の件数
+export HISTSIZE=1000
+#
+# # 履歴ファイルに保存される履歴の件数
+export SAVEHIST=100000
+
 # <Tab> でパス名の補完候補を表示したあと、
 # 続けて <Tab> を押すと候補からパス名を選択できるようになる
 # 候補を選ぶには <Tab> か Ctrl-N,B,F,P
