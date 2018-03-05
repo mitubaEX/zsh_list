@@ -89,7 +89,7 @@ PROMPT=$'$ '
 #PROMPT='[%n@%m]# '
 #RPROMPT='[%d]'
 # export PYTHONPATH="/usr/local/lib/python2.7/site-packages/:$PYTHONPATH:python3:pip3"
-export PYTHONPATH=python3:pip3
+export PYTHONPATH=python:pip3
 
 # 大文字小文字区別しない
 zstyle ':completion:*' matcher-list 'm:{}a-z}={}A-Z}'
@@ -143,4 +143,21 @@ export PATH="/Users/username/.pyenv:$PATH"
 eval "$(pyenv init -)"
 
 export PATH=$PATH:$GOPATH/bin
+export ANDROID_HOME=/Users/mituba/Library/Android/sdk
+
+alias atmkdir='for i in A B C D ; do mkdir "$i"; touch "$i"/main.py ;done '
+
+export PATH=/Users/mituba/proggraming_practice/flutter/bin:$PATH
+alias py3='python3'
+
+export PATH="/usr/local/opt/python@2/bin:$PATH"
+
+# git command
+alias gco='git checkout'
+alias gpl='git pull'
+alias gps='git push'
+alias gcm='git commit'
+alias gst='git status'
+
+export TERM=xterm-256color
 
