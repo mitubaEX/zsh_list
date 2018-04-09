@@ -32,7 +32,7 @@ setopt pushd_ignore_dups
 setopt no_beep
 
 # key-bind
-bindkey -M viins '^W' vi-cmd-mode
+bindkey -M viins 'jj' vi-cmd-mode
 bindkey -v '^L'   forward-char
 bindkey -v '^H'   backward-char
 bindkey -v '^K'   up-line-or-history
