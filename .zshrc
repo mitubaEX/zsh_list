@@ -50,22 +50,22 @@ alias dockerrmi='docker rmi -f $(docker images -q)'
 alias atmkdir='for i in A B C D ; do mkdir "$i"; touch "$i"/main.py ;done '
 
 # go
-export GOPATH=/Users/mituba/go
+export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 # vim
 stty stop undef
 stty start undef
 
-# peco
-function peco-history-selection() {
-    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | peco`
+# fzf
+function fzf-history-selection() {
+    BUFFER=`history -n 1 | tail -r  | awk '!a[$0]++' | fzf`
     CURSOR=$#BUFFER
     zle reset-prompt
 }
 
-zle -N peco-history-selection
-bindkey '^R' peco-history-selection
+zle -N fzf-history-selection
+bindkey '^R' fzf-history-selection
 
 # git
 autoload -Uz vcs_info
