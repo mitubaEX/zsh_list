@@ -144,5 +144,6 @@ POWERLEVEL9K_COMMAND_EXECUTION_TIME_THRESHOLD=0
 POWERLEVEL9K_RAM_BACKGROUND='white'
 POWERLEVEL9K_IP_BACKGROUND='white'
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator os_icon context ssh dir vcs vi_mode)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status dir_writable docker_machine command_execution_time ip time)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon context ssh dir vcs vi_mode)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status dir_writable command_execution_time ip time)
+

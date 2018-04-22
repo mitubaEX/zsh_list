@@ -115,6 +115,8 @@ zstyle ':prezto:module:osx:man' dash-keyword 'manpages'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
+export TERM="xterm-256color"
+POWERLEVEL9K_MODE='nerdfont-complete'
 zstyle ':prezto:module:prompt' theme 'powerlevel9k'
 zstyle ':prezto:module:prompt' pwd-length 'long'
 zstyle ':prezto:module:prompt' show-return-val 'no'
