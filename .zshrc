@@ -67,16 +67,38 @@ function fzf-history-selection() {
 zle -N fzf-history-selection
 bindkey '^R' fzf-history-selection
 
-# git
-autoload -Uz vcs_info
-setopt prompt_subst
-zstyle ':vcs_info:git:*' check-for-changes true
-zstyle ':vcs_info:git:*' stagedstr "%F{yellow}!"
-zstyle ':vcs_info:git:*' unstagedstr "%F{red}+"
-zstyle ':vcs_info:*' formats "%F{green}%c%u[%b]%f"
-zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () { vcs_info }
-RPROMPT='${vcs_info_msg_0_}'
-
 # ls
 function chpwd() { ls }
+
+POWERLEVEL9K_VCS_BRANCH_ICON=$''
+POWERLEVEL9K_COLOR_SCHEME='light'
+
+# Advanced `vcs` color customization
+POWERLEVEL9K_VCS_CLEAN_FOREGROUND='white'
+POWERLEVEL9K_VCS_CLEAN_BACKGROUND='070'
+POWERLEVEL9K_VCS_UNTRACKED_FOREGROUND='white'
+POWERLEVEL9K_VCS_UNTRACKED_BACKGROUND='197'
+POWERLEVEL9K_VCS_MODIFIED_FOREGROUND='white'
+POWERLEVEL9K_VCS_MODIFIED_BACKGROUND='197'
+
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND='white'
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND='039'
+POWERLEVEL9K_DIR_HOME_FOREGROUND='white'
+POWERLEVEL9K_DIR_HOME_BACKGROUND='039'
+
+POWERLEVEL9K_VI_MODE_INSERT_BACKGROUND='white'
+POWERLEVEL9K_VI_MODE_NORMAL_BACKGROUND='white'
+POWERLEVEL9K_VI_MODE_INSERT_FOREGROUND='241'
+POWERLEVEL9K_VI_MODE_NORMAL_FOREGROUND='039'
+
+POWERLEVEL9K_OS_ICON_BACKGROUND="white"
+POWERLEVEL9K_OS_ICON_FOREGROUND="blue"
+
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S | %y/%m/%d}"
+
+POWERLEVEL9K_MODE='awesome-fontconfig'
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs vi_mode)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status docker_machine time)
+
