@@ -174,7 +174,7 @@ fi
 
 ## ref: https://www.matsub.net/posts/2017/12/01/ghq-fzf-on-tmux
 ## ref: http://blog.chairoi.me/entry/2017/12/26/233926
-function dev() {
+function create_session_with_ghq() {
     # rename session if in tmux
     moveto=$(ghq root)/$(ghq list | fzf)
     if [[ ! -z ${TMUX} ]]
@@ -187,5 +187,12 @@ function dev() {
     fi
 }
 
-zle -N dev
-bindkey '^G' dev
+zle -N create_session_with_ghq
+bindkey '^G' create_session_with_ghq
+
+function delete_repository_with_ghq() {
+    repo=$(ghq root)/$(ghq list | fzf)
+    rm -rf $repo
+}
+zle -N delete_repository_with_ghq
+bindkey '^X' delete_repository_with_ghq
