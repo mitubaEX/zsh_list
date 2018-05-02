@@ -171,3 +171,21 @@ if [[ ! -n $TMUX ]]; then
     :  # Start terminal normally
   fi
 fi
+
+## ref: https://www.matsub.net/posts/2017/12/01/ghq-fzf-on-tmux
+## ref: http://blog.chairoi.me/entry/2017/12/26/233926
+function dev() {
+    # rename session if in tmux
+    moveto=$(ghq root)/$(ghq list | fzf)
+    if [[ ! -z ${TMUX} ]]
+    then
+        repo_name=${moveto##*/}
+        tmux new-session -d -c $moveto -s ${repo_name//./-}  2> /dev/null
+        tmux switch-client -t ${repo_name//./-}
+        # cd $moveto
+        # tmux rename-session ${repo_name//./-}
+    fi
+}
+
+zle -N dev
+bindkey '^G' dev
