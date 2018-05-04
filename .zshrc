@@ -132,8 +132,8 @@ POWERLEVEL9K_TIME_BACKGROUND="249"
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 
 POWERLEVEL9K_SHORTEN_DELIMITER=..
-POWERLEVEL9K_VI_INSERT_MODE_STRING="I"
-POWERLEVEL9K_VI_COMMAND_MODE_STRING="N"
+POWERLEVEL9K_VI_INSERT_MODE_STRING="😍"
+POWERLEVEL9K_VI_COMMAND_MODE_STRING="😐"
 #
 # # multiline
 # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
@@ -163,8 +163,8 @@ function git_information() {
 }
 
 POWERLEVEL9K_CUSTOM_GIT_INFO="git_information"
-POWERLEVEL9K_CUSTOM_GIT_INFO_BACKGROUND="232"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( vi_mode ssh dir custom_git_info )
+POWERLEVEL9K_CUSTOM_GIT_INFO_BACKGROUND="black"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( vi_mode custom_git_info ssh dir )
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( status dir_writable command_execution_time ip time )
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( dir_writable command_execution_time )
 
@@ -196,8 +196,11 @@ function create_session_with_ghq() {
     if [[ ! -z ${TMUX} ]]
     then
         repo_name=`basename $moveto`
-        tmux new-session -d -c $moveto -s $repo_name  2> /dev/null
-        tmux switch-client -t $repo_name 2> /dev/null
+        if [ $repo_name != `basename $(ghq root)` ]
+        then
+          tmux new-session -d -c $moveto -s $repo_name  2> /dev/null
+          tmux switch-client -t $repo_name 2> /dev/null
+        fi
         # cd $moveto
         # tmux rename-session ${repo_name//./-}
     fi
