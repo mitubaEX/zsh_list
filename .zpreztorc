@@ -229,3 +229,4 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
 # behavior.
 # zstyle ':prezto:module:utility' safe-ops 'yes'
 #
+POWERLEVEL9K_HIDE_BRANCH_ICON=true
