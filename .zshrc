@@ -50,8 +50,8 @@ alias dockerrmi='docker rmi -f $(docker images -q)'
 alias atmkdir='for i in A B C D ; do mkdir "$i"; touch "$i"/main.py ;done '
 
 # go
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
+export GOPATH=$HOME/go:$HOME/.ghq
+export PATH=$PATH:$HOME/go/bin
 
 # vim
 stty stop undef
@@ -129,7 +129,7 @@ POWERLEVEL9K_TIME_BACKGROUND="249"
 # POWERLEVEL9K_DIR_WRITABLE_BACKGROUND="white"
 # POWERLEVEL9K_DIR_WRITABLE_FOREGROUND="black"
 
-POWERLEVEL9K_SHORTEN_DIR_LENGTH=2
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=3
 
 POWERLEVEL9K_SHORTEN_DELIMITER=..
 POWERLEVEL9K_VI_INSERT_MODE_STRING="I"
@@ -148,8 +148,23 @@ POWERLEVEL9K_VI_COMMAND_MODE_STRING="N"
 #
 # POWERLEVEL9K_RAM_BACKGROUND='white'
 # POWERLEVEL9K_IP_BACKGROUND='white'
+#
+# git
+function git_information() {
+  autoload -Uz vcs_info
+  setopt prompt_subst
+  zstyle ':vcs_info:git:*' check-for-changes true
+  zstyle ':vcs_info:git:*' stagedstr "%F{yellow}"
+  zstyle ':vcs_info:git:*' unstagedstr "%F{red}"
+  zstyle ':vcs_info:*' formats "%F{green}%c%u %b%f"
+  zstyle ':vcs_info:*' actionformats '[%b|%a]'
+  vcs_info
+  echo ${vcs_info_msg_0_}
+}
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( vi_mode time ssh dir vcs )
+POWERLEVEL9K_CUSTOM_GIT_INFO="git_information"
+POWERLEVEL9K_CUSTOM_GIT_INFO_BACKGROUND="232"
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=( vi_mode ssh dir custom_git_info )
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( status dir_writable command_execution_time ip time )
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=( dir_writable command_execution_time )
 
@@ -158,7 +173,8 @@ if [[ ! -n $TMUX ]]; then
   # get the IDs
   ID="`tmux list-sessions`"
   if [[ -z "$ID" ]]; then
-    tmux new-session && exit
+    # tmux new-session && exit
+    tmux new-session
   fi
   create_new_session="Create New Session"
   ID="$ID\n${create_new_session}:"
@@ -179,9 +195,9 @@ function create_session_with_ghq() {
     moveto=$(ghq root)/$(ghq list | fzf)
     if [[ ! -z ${TMUX} ]]
     then
-        repo_name=${moveto##*/}
-        tmux new-session -d -c $moveto -s ${repo_name//./-}  2> /dev/null
-        tmux switch-client -t ${repo_name//./-}
+        repo_name=`basename $moveto`
+        tmux new-session -d -c $moveto -s $repo_name  2> /dev/null
+        tmux switch-client -t $repo_name 2> /dev/null
         # cd $moveto
         # tmux rename-session ${repo_name//./-}
     fi
@@ -196,3 +212,4 @@ function delete_repository_with_ghq() {
 }
 zle -N delete_repository_with_ghq
 bindkey '^X' delete_repository_with_ghq
+
