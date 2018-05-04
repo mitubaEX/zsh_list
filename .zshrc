@@ -149,16 +149,16 @@ POWERLEVEL9K_VI_COMMAND_MODE_STRING="😐"
 # POWERLEVEL9K_RAM_BACKGROUND='white'
 # POWERLEVEL9K_IP_BACKGROUND='white'
 #
+autoload -Uz vcs_info
+setopt prompt_subst
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr "%F{yellow}"
+zstyle ':vcs_info:git:*' unstagedstr "%F{red}"
+zstyle ':vcs_info:*' formats "%F{green}%c%u %b%f"
+zstyle ':vcs_info:*' actionformats '[%b|%a]'
+precmd () { vcs_info }
 # git
 function git_information() {
-  autoload -Uz vcs_info
-  setopt prompt_subst
-  zstyle ':vcs_info:git:*' check-for-changes true
-  zstyle ':vcs_info:git:*' stagedstr "%F{yellow}"
-  zstyle ':vcs_info:git:*' unstagedstr "%F{red}"
-  zstyle ':vcs_info:*' formats "%F{green}%c%u %b%f"
-  zstyle ':vcs_info:*' actionformats '[%b|%a]'
-  vcs_info
   echo ${vcs_info_msg_0_}
 }
 
